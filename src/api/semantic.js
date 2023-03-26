@@ -17,7 +17,9 @@ export default async function handler(req, res) {
   });
   const [{ embedding }] = response.data.data;
 
-  const records = await xata.db.accounts.vectorSearch("embedding", embedding);
+  const records = await xata.db.accounts.vectorSearch("embedding", embedding, {
+    size: 20,
+  });
 
   const enrichedResults = records.map((record) => {
     return {
