@@ -9,18 +9,21 @@ const openAIConfig = new Configuration({
 });
 const openAI = new OpenAIApi(openAIConfig);
 
-const getEmbedding = async (input) => {
+const transformRecord = async (record) => {
+  const input = `
+    Name: ${record.name}; 
+    Username: ${record.username}; 
+    Location: ${record.meta.location}; 
+    Description: ${record.meta.description}; 
+    Followers: ${record.public_metrics.followers_count}; 
+    Following: ${record.public_metrics.following_count};
+  `;
   const response = await openAI.createEmbedding({
     input: input,
     model: "text-embedding-ada-002",
   });
   const [{ embedding }] = response.data.data;
-  return embedding;
-};
 
-const transformRecord = async (record) => {
-  const input = `Name: ${record.name}; Username: ${record.username}; Location: ${record.meta.location}; Description: ${record.meta.description}; Followers: ${record.public_metrics.followers_count}; Following: ${record.public_metrics.following_count};`;
-  const embedding = await getEmbedding(input);
   return {
     id: record.id,
     embedding: embedding,

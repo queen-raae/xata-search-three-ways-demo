@@ -22,6 +22,7 @@
     "dotenv": "^16.0.3",
     "gatsby": "5.7.0",
     "openai": "^3.2.1",
+    "probe-image-size": "^7.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "usehooks-ts": "^2.9.1"
