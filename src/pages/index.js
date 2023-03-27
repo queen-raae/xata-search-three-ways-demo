@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-import SearchResults, { SEARCH_TYPE } from "../search";
-import SearchForm from "../search/search-form";
+import { SearchForm, SearchResults, SEARCH_TYPE } from "../search";
 
 export default function PlainTextPage() {
   const [term, setTerm] = useState("");
