@@ -18,8 +18,17 @@ export default async function handler(req, res) {
     .getMany({ pagination: { size: 40 } });
 
   const enrichedResults = records.map((record) => {
+    const highlight = (match) => `<em>${match}</em>`;
     return {
       record: record,
+      highlight: {
+        name: record.name?.replace(term, highlight),
+        username: record.username?.replace(term, highlight),
+        meta: {
+          description: record.meta.description?.replace(term, highlight),
+          location: record.meta.location?.replace(term, highlight),
+        },
+      },
     };
   });
 
