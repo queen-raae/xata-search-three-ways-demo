@@ -15,7 +15,7 @@ export default async function handler(req, res) {
       accounts.filter("meta.description", contains(term)),
       accounts.filter("meta.location", contains(term))
     )
-    .getMany({ pagination: { size: 40 } });
+    .getMany({ pagination: { size: 20 } });
 
   const enrichedResults = records.map((record) => {
     const highlight = (match) => `<em>${match}</em>`;
