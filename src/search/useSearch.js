@@ -3,9 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 export const SEARCH_TYPE = {
-  FULLTEXT: "fulltext",
+  FUZZY: "fuzzy",
   SEMANTIC: "semantic",
-  PLAINTEXT: "plaintext",
+  PARTIAL: "partial",
 };
 
 export default function useSearch({ term, type }) {

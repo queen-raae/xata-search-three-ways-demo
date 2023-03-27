@@ -10,11 +10,11 @@ export default function PlainTextPage() {
     <main>
       <SearchForm onTermChange={setTerm} term={term} />
 
-      <h2>Plaintext (partial match)</h2>
-      <SearchResults term={term} type={SEARCH_TYPE.PLAINTEXT} />
+      <h2>Partial Match</h2>
+      <SearchResults term={term} type={SEARCH_TYPE.PARTIAL} />
 
-      <h2>Fulltext (fuzzy)</h2>
-      <SearchResults term={term} type={SEARCH_TYPE.FULLTEXT} />
+      <h2>Fuzzy Full-text</h2>
+      <SearchResults term={term} type={SEARCH_TYPE.FUZZY} />
 
       <h2>Semantic (AI)</h2>
       <SearchResults term={term} type={SEARCH_TYPE.SEMANTIC} />
