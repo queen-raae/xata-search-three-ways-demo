@@ -5,16 +5,18 @@ const xata = getXataClient();
 
 const deleteBrokenProfileImageRecords = async (records) => {
   console.log("Probe profile images", records.length);
-  const probeProfileImagePromises = records.map(async (record) => {
+  const deleteBrokenImage = async (record) => {
     try {
+      // 2️⃣ Probe each account profile image
       await probe(record.meta.profile_image_url);
       console.log("Do not delete ", record.username);
     } catch (error) {
+      // 3️⃣ Delete the account record if the image is unavailable
       await xata.db.accounts.delete(record.id);
       console.log("Deleted ", record.username);
     }
-  });
-  const probedRecords = await Promise.all(probeProfileImagePromises);
+  };
+  const probedRecords = await Promise.all(records.map(deleteBrokenImage));
   console.log("Probed profile images", probedRecords.length);
   return probedRecords;
 };
