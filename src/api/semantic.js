@@ -15,18 +15,23 @@ export default async function handler(req, res) {
     input: term,
     model: "text-embedding-ada-002",
   });
-  const [{ embedding }] = response.data.data;
 
-  const records = await xata.db.accounts.vectorSearch("embedding", embedding, {
-    size: 20,
-  });
+  const [{ embedding: searchTermEmbedding }] = response.data.data;
 
-  const enrichedResults = records.map((record) => {
+  let results = await xata.db.accounts.vectorSearch(
+    "embedding",
+    searchTermEmbedding,
+    {
+      size: 20,
+    }
+  );
+
+  results = results.map((record) => {
     return {
       record: record,
-      ...record.getMetadata(),
+      // No highlights
     };
   });
 
-  res.json(enrichedResults);
+  res.json(results);
 }

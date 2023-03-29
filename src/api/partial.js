@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   const { accounts } = xata.db;
 
-  const records = await accounts
+  let results = await accounts
     .any(
       accounts.filter("name", contains(term)),
       accounts.filter("username", contains(term)),
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     )
     .getMany({ pagination: { size: 20 } });
 
-  const enrichedResults = records.map((record) => {
+  results = results.map((record) => {
     const highlight = (match) => `<em>${match}</em>`;
     return {
       record: record,
@@ -32,5 +32,5 @@ export default async function handler(req, res) {
     };
   });
 
-  res.json(enrichedResults);
+  res.json(results);
 }
